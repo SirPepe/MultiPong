@@ -10,11 +10,11 @@
 	<input id="readyBtn" type="button" value="Ready" />
 
 <script src="http://requirejs.org/docs/release/2.1.6/minified/require.js" data-main="server"></script>
-<script src="http://192.168.2.102:8082/target/target-script-min.js#anonymous"></script>
+
 
 <script>
 
-    require(["server"], function(server){
+    require(["server", "jquery"], function(server){
         		
 		var $readyBtn = $('#readyBtn');
 
