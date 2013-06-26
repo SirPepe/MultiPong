@@ -26,6 +26,8 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on("postReady", function(data){
 
+		throw "ready";
+
 		var clientId=socket.id;
 
 		if (playerInGame.length<2){
