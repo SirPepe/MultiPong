@@ -1,6 +1,6 @@
 define(["server"], function(server){
 
-	var info = document.getElementById('info');
+	var $info = $('#info');
 
 	window.addEventListener('deviceorientation', function(evt){
 		var position = (evt.beta / 90);
@@ -16,7 +16,7 @@ define(["server"], function(server){
 	}, false);
 
 
-	var readyBtn = document.getElementById('readyBtn');
+	var $readyBtn = $('#readyBtn');
 
 	readyBtn.onclick = function() {
 		// TODO Ready an Server schicken
@@ -26,11 +26,15 @@ define(["server"], function(server){
 
 	var onGameOverFtn = function onGameOver(win) {
 		if (win) {
-			document.body.style.backgroundColor = 'rgb(0, 255, 0)';
-			document.getElementById('win').innerHTML = 'Gewonnen';
+			$('body').css('background-color', 'rgb(0, 255, 0)');
+			$('#win').html('Gewonnen');
+//			document.body.style.backgroundColor = 'rgb(0, 255, 0)';
+//			document.getElementById('win').innerHTML = ;
 		} else {
-			document.body.style.backgroundColor = 'rgb(255, 0, 0)';
-			document.getElementById('win').innerHTML = 'Verloren';
+			$('body').css('background-color', 'rgb(255, 0, 0)');
+			$('#win').html('Verloren');
+//			document.body.style.backgroundColor = 'rgb(255, 0, 0)';
+//			document.getElementById('win').innerHTML = 'Verloren';
 		}
 	};
 
