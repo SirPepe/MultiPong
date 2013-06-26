@@ -1,0 +1,8 @@
+{
+	"name": "MultiPong Websocket server",
+	"description": "Starts an Websocket server for the multipong game",
+	"dependencies": {
+		"socket.io": "= 0.9.16"
+	},
+	"engine": "node 0.8.14"
+}
