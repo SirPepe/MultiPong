@@ -45,7 +45,7 @@ io.sockets.on('connection', function (socket) {
 
 		var result = {clientId: socket.id, beta: data};
 		console.log("Fire onPosition "+require("util").inspect(result,true,null) );
-		socket.emit("onPosition",{clientId: clientId, beta: data});
+		socket.emit("onPosition",{clientId: socket.id, beta: data});
 	})
 });
 
