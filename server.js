@@ -12,9 +12,6 @@ define(["socket.io/socket.io"],function(io){
 	});
 
 	return {
-		foo: function(){
-			return "bar";
-		},
 		postReady: function(){
 			socket.emit("postReady");
 		},
@@ -29,6 +26,14 @@ define(["socket.io/socket.io"],function(io){
 		onPosition: function(cb){
 			socket.on("onPosition",function(data){
 				cb(data.clientId,data.beta);
+			});
+		},
+		postGameOver: function(clientId){
+			socket.emit("postGameOver",beta);
+		},
+		onGameOver: function(cb){
+			socket.on("onGameOver",function(isWinner){
+				cb(isWinner);
 			});
 		}
 	}
