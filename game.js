@@ -19,27 +19,20 @@ var gameEngine = {
     ready: false,
     countDown: 3,
 
-    startGame: function(player){
-        if(this.player0.id == player){
-            this.player0.ready = true;
-        }else if(this.player1.id == player){
-            this.player1.ready = true;
-        }
-        if(this.player0.ready && this.player1.ready){
-            $(".gameState").html(gameEngine.countDown);
-            var intervalId = window.setInterval(function(){
-                gameEngine.countDown--;
-                if(gameEngine.countDown == 0){
-                    $(".gameState").html("");
-                    gameEngine.ready = true;
-                    window.clearInterval(intervalId);
-                }else {
-                    $(".gameState").html(gameEngine.countDown);
-                }
+    startGame: function(){
+        $(".gameState").html(gameEngine.countDown);
+        var intervalId = window.setInterval(function(){
+            gameEngine.countDown--;
+            if(gameEngine.countDown == 0){
+                $(".gameState").html("");
+                gameEngine.ready = true;
+                window.clearInterval(intervalId);
+            }else {
+                $(".gameState").html(gameEngine.countDown);
+            }
 
-            }, 1000);
-            // this.ready = true;
-        }
+        }, 1000);
+        // this.ready = true;
     },
 
     movePaddles: function () {
@@ -123,8 +116,8 @@ server.onPosition(function (player, position) {
     gameEngine.playerInputPositions[player] = position;
 });
 
-server.onReady(function (player) {
-    console.log("on ready: ", player);
-    gameEngine.startGame(player);
+server.onReady(function () {
+    console.log("on ready: ");
+    gameEngine.startGame();
 });
 });
