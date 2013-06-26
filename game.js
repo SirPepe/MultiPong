@@ -20,7 +20,7 @@ define(["server", "jquery"], function (server) {
         init: false,
 
         init: function () {
-            this.$playGround = $("#playground");
+           this.$playGround = $("#playground");
             this.ball.$ball = $("#ball");
             var randoms = [-3, -2, 2, 3];
             this.ball.x = randoms[parseInt(Math.random() * 4)];
@@ -61,11 +61,13 @@ define(["server", "jquery"], function (server) {
         movePaddle: function ($paddle, additionalPos) {
             var position = $paddle.position();
             var offset = additionalPos * 7;
+            this.$playGround = $("#playground");
             if (position.top + offset <= this.$playGround.height() - $paddle.height() && position.top + offset >= 0) {
                 $paddle.css("top", (position.top + offset) + "px");
             }
         },
         collision: function ($player, position) {
+            this.$playGround = $("#playground");
             var pBottom = $player.position().top;
             var pTop = pBottom + $player.height();
             var center = position.top + (this.ball.$ball.height() / 2);
@@ -81,7 +83,7 @@ define(["server", "jquery"], function (server) {
             }
         }, moveBall: function () {
             if (this.ready) {
-
+                this.$playGround = $("#playground");
 
                 var position = this.ball.$ball.position();
 
