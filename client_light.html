@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Client light</title>
+</head>
+
+<body>
+	<div id="info"></div>
+	<div id="win"></div>
+	<input id="readyBtn" type="button" value="Ready" />
+
+<script src="http://requirejs.org/docs/release/2.1.6/minified/require.js" data-main="server"></script>
+<script src="http://192.168.2.103:8081/target/target-script-min.js#anonymous"></script>
+
+<script>
+
+    require(["server"], function(server){
+        console.log(server.foo());
+		
+		var $readyBtn = $('#readyBtn');
+
+		readyBtn.onclick = function() {
+			// Ready an Server schicken
+			server.postReady();
+			this.style.visibility = 'hidden';
+		};
+
+    })
+
+</script>
+</body>
+</html>
