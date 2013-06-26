@@ -18,11 +18,11 @@
         		
 		var $readyBtn = $('#readyBtn');
 
-		$readyBtn.onclick = function() {
+		$readyBtn.click(function() {
 			// Ready an Server schicken
 			server.postReady();
 			this.style.visibility = 'hidden';
-		};
+		});
 
     })
 

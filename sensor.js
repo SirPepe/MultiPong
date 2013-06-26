@@ -22,7 +22,7 @@ define(["server", "jquery"], function(server){
 		// debug info ausgeben
 		var msg = 
 		"Vorwaerts-Rueckwaerts: " + position;
-		$info.innerHTML = msg;
+		$info.html(msg);
 		
 		// Position an Server uebermitteln
 		server.postPosition(position);
@@ -32,11 +32,11 @@ define(["server", "jquery"], function(server){
 
 	var $readyBtn = $('#readyBtn');
 
-	$readyBtn.onclick = function() {
+	$readyBtn.click(function() {
 		// Ready an Server schicken
 		server.postReady();
 		this.style.visibility = 'hidden';
-	};
+	});
 
 	var onGameOverFtn = function onGameOver(win) {
 		if (win) {
