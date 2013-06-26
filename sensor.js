@@ -38,7 +38,7 @@ define(["server", "jquery"], function(server){
 		this.style.visibility = 'hidden';
 	});
 
-	var onGameOverFtn = function onGameOver(win) {
+	server.onGameOver(function(win) {
 		if (win) {
 			$('body').css('background-color', 'rgb(0, 255, 0)');
 			$('#win').html('Gewonnen');
@@ -46,9 +46,7 @@ define(["server", "jquery"], function(server){
 			$('body').css('background-color', 'rgb(255, 0, 0)');
 			$('#win').html('Verloren');
 		}
-	};
-
-	server.onGameOver(onGameOverFtn);
+	});
 
 });
 
