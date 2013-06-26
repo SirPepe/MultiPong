@@ -133,4 +133,8 @@ define(["server", "jquery"], function (server) {
         console.log("on ready: ");
         gameEngine.startGame();
     });
+
+    $(document).ready(function () {
+        gameEngine.init();
+    });
 });
