@@ -56,6 +56,7 @@ var gameEngine = {
         var pTop = pBottom + $player.height();
         var center = position.top + ($ball.height() / 2);
         if (center > pBottom && pTop > center) {
+            //this.y += parseInt(Math.random()*5)-1;
             this.ball.x = (-1) * this.ball.x;
             return true;
         }
@@ -137,9 +138,11 @@ window.requestAnimationFrame(function move() {
 };*/
 
 server.onPosition(function (player, position) {
+    console.log("got new position: ", player, position);
     gameEngine.playerInputPositions[player] = position;
 });
 
 server.onReady(function (player) {
+    console.log("on ready: ", player);
     gameEngine.startGame(player);
 });});
