@@ -1,8 +1,21 @@
 {
-	"name": "MultiPong Websocket server",
-	"description": "Starts an Websocket server for the multipong game",
-	"dependencies": {
-		"socket.io": "= 0.9.16"
-	},
-	"engine": "node 0.8.14"
+  "name": "MultiPongServer",
+  "version": "0.0.0",
+  "description": "MultiPong =========",
+  "main": "main.js",
+  "dependencies": {
+    "socket.io": "~0.9.16"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SirPepe/MultiPong.git"
+  },
+  "author": "",
+  "license": "BSD",
+  "readmeFilename": "README.md"
 }
