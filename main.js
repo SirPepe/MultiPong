@@ -45,7 +45,13 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on("postPosition", function(data){
 
+		if (playerGame.length!=2){
+			return;
+		}
+
 		var player = playerInGame.indexOf(socket.id);
+
+
 		if (player ==-1){
 			console.log("Unknown clientId");
 			return;
