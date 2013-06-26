@@ -17,6 +17,7 @@ define(["server", "jquery"], function (server) {
         ball: {x: 3, y: 3, $ball: null},
         ready: false,
         countDown: 3,
+        init: false,
 
         init: function () {
             this.$playGround = $("#playground");
@@ -24,6 +25,7 @@ define(["server", "jquery"], function (server) {
             var randoms = [-3, -2, 2, 3];
             this.ball.x = randoms[parseInt(Math.random() * 4)];
             this.ball.y = randoms[parseInt(Math.random() * 4)];
+            this.init = true;
         },
 
         startGame: function () {
@@ -117,10 +119,17 @@ define(["server", "jquery"], function (server) {
     };
 
     window.requestAnimationFrame(function move() {
-        gameEngine.movePaddles();
-        gameEngine.moveBall();
-        window.requestAnimationFrame(move);
+        if(gameEngine.init){
+            gameEngine.movePaddles();
+            gameEngine.moveBall();
+            window.requestAnimationFrame(move);
+        }
 
+    });
+
+
+    $(document).ready(function () {
+        gameEngine.init();
     });
 
 
@@ -134,7 +143,4 @@ define(["server", "jquery"], function (server) {
         gameEngine.startGame();
     });
 
-    $(document).ready(function () {
-        gameEngine.init();
-    });
 });
