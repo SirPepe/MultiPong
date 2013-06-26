@@ -1,4 +1,4 @@
-define(["server"], function(server){
+define(["server", "jquery"], function(server){
 
 	var $info = $('#info');
 
