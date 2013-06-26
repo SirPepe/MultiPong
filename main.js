@@ -23,21 +23,29 @@ function handler (req, res) {
 var playerInGame=[];
 
 io.sockets.on('connection', function (socket) {
-	socket.on('ready', function (data) {
-		console.log(data);
-		socket.emit("startGame","Started game")
-	});
-
 
 	socket.on("postReady", function(data){
+
+		var clientId=socket.id;
+
 		if (playerInGame.length<2){
-			 if (!~playerInGame.indexOf(data.player)){
-				 playerInGame.push(data);
+			 if (!~playerInGame.indexOf(clientId)){
+				 console.log("client registered");
+				 playerInGame.push(clientId);
 			 }
 		}
 		if (playerInGame.length==2){
+			console.log("Fire onReady: 2 Player in the game");
 			socket.emit("onReady");
 		}
+	})
+
+
+	socket.on("postPosition", function(data){
+
+		var result = {clientId: socket.id, beta: data};
+		console.log("Fire onPosition "+require("util").inspect(result,true,null) );
+		socket.emit("onPosition",{clientId: clientId, beta: data});
 	})
 });
 
