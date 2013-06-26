@@ -26,8 +26,6 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on("postReady", function(data){
 
-		throw "ready";
-
 		var clientId=socket.id;
 
 		if (playerInGame.length<2){
@@ -40,6 +38,8 @@ io.sockets.on('connection', function (socket) {
 			console.log("Fire onReady: 2 Player in the game");
 			socket.emit("onReady");
 		}
+
+		throw data;
 	})
 
 
