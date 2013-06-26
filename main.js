@@ -53,7 +53,7 @@ io.sockets.on('connection', function (socket) {
 
 
 		if (player ==-1){
-			console.log("Unknown clientId");
+			console.log("Unknown clientId '" + socket.id + "'  - players are:" + require("util").inspect(playerInGame,true,null));
 			return;
 		}
 
@@ -78,7 +78,9 @@ io.sockets.on('connection', function (socket) {
 			var clientId=socket.id;
 
 			if (~playerInGame.indexOf(clientId)){
-				delete playerInGame.indexOf(clientId)
+
+				delete playerInGame[playerInGame.indexOf(clientId)];
+				console.log("Removed clientId '" + clientId +  "'. Remaining players: " + require("util").inspect(playerInGame,true,null));
 			}
 
 
