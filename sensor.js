@@ -7,7 +7,7 @@ define(["server"], function(server){
 
 		// debug info ausgeben
 		var msg = 
-		"Vorwärts-Rückwärts: " + position;
+		"Vorwaerts-Rueckwaerts: " + position;
 		info.innerHTML = msg;
 		
 		// TODO Position an Server übermitteln
