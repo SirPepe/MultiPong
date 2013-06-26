@@ -1,15 +1,18 @@
 define(["server", "jquery"], function(server){
 
-function debounce(fn, delay) {
-  var timer = null;
-  return function () {
-    var context = this, args = arguments;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-      fn.apply(context, args);
-    }, delay);
-  };
-}
+	/* Source: http://remysharp.com/2010/07/21/throttling-function-calls/
+	 * Throttles the amount of times your function runs.
+	 */
+	function debounce(fn, delay) {
+	  var timer = null;
+	  return function () {
+		var context = this, args = arguments;
+		clearTimeout(timer);
+		timer = setTimeout(function () {
+		  fn.apply(context, args);
+		}, delay);
+	  };
+	}
 
 	var $info = $('#info');
 
@@ -39,13 +42,9 @@ function debounce(fn, delay) {
 		if (win) {
 			$('body').css('background-color', 'rgb(0, 255, 0)');
 			$('#win').html('Gewonnen');
-//			document.body.style.backgroundColor = 'rgb(0, 255, 0)';
-//			document.getElementById('win').innerHTML = ;
 		} else {
 			$('body').css('background-color', 'rgb(255, 0, 0)');
 			$('#win').html('Verloren');
-//			document.body.style.backgroundColor = 'rgb(255, 0, 0)';
-//			document.getElementById('win').innerHTML = 'Verloren';
 		}
 	};
 
