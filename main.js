@@ -28,9 +28,9 @@ io.sockets.on('connection', function (socket) {
 
 		var clientId=socket.id;
 
-		if (playerInGame.length<2){
-			if (!~playerInGame.indexOf(clientId)){
-				console.log("client registered");
+		if (playerInGame.length<3){
+			if (playerInGame.indexOf(clientId) == -1){
+				console.log("client '" + clientId+ "' registered");
 				playerInGame.push(clientId);
 			}
 		}
