@@ -61,7 +61,7 @@ var gameEngine = {
         var pTop = pBottom + $player.height();
         var center = position.top + ($ball.height() / 2);
         if (center > pBottom && pTop > center) {
-            //this.y += parseInt(Math.random()*5)-1;
+            this.ball.y += parseInt(Math.random() * 5) - 3;
             this.ball.x = (-1) * this.ball.x;
             return true;
         }
