@@ -55,7 +55,8 @@
              playerInputPositions: [0,0],
              player0 : {ready: false, y : 0, elementId: "player0"},
              player1 : {ready: false, y: 0, elementId: "player1"},
-             movePaddles : function(){
+             ball : {x: 2, y: 2, elementId: "ball"},
+              movePaddles : function(){
                  var $playGround = $("#playground");
                  var $player0 = $("#"+this.player0.elementId);
                  var $player1 = $("#"+this.player1.elementId);
@@ -70,6 +71,20 @@
                   }
               },
               moveBall: function(){
+                   var $playGround = $("#playground");
+                   var $ball =   $("#"+this.ball.elementId);
+                   var position = $ball.position();
+
+                   if( position.left + this.ball.x < 0  ||  position.left + this.ball.x > $playGround.width() - $ball.width()){
+                       this.ball.x = (-1)*this.ball.x;
+                   }
+                   var newX = position.left + this.ball.x;
+
+                  if( position.top + this.ball.y < 0  || position.top + this.ball.y > $playGround.height() - $ball.height()){
+                      this.ball.y = (-1)*this.ball.y;
+                  }
+                  var newY = position.top + this.ball.y;
+                   $ball.css({"left": newX+"px", "top" : newY+"px"});
 
               }
 
