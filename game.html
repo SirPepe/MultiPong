@@ -39,7 +39,7 @@
             left: 50%;
             top: 50%;
         }
-        .gameOver{
+        .gameState{
 
             font-size: 64px;
             font-weight: bold;
@@ -56,6 +56,7 @@
 </head>
 <body>
 <div id="playground">
+    <div class='gameState'>Game Over</div>
     <div id="player0" class="paddle"></div>
     <div id="player1" class="paddle"></div>
     <div id="ball"></div>
@@ -71,7 +72,32 @@
         player0: {ready: false, elementId: "player0", id : 0},
         player1: {ready: false, elementId: "player1", id : 1},
         ball: {x: 2, y: 2, elementId: "ball"},
-        ready: true,
+        ready: false,
+        countDown: 3,
+
+        startGame: function(player){
+            if(this.player0.id == player){
+                this.player0.ready = true;
+            }else if(this.player1.id == player){
+                this.player1.ready = true;
+            }
+            if(this.player0.ready && this.player1.ready){
+                $(".gameState").html(gameEngine.countDown);
+               var intervalId = window.setInterval(function(){
+                   gameEngine.countDown--;
+                   if(gameEngine.countDown == 0){
+                       $(".gameState").html("");
+                       gameEngine.ready = true;
+                        window.clearInterval(intervalId);
+                   }else {
+                       $(".gameState").html(gameEngine.countDown);
+                   }
+
+               }, 1000);
+               // this.ready = true;
+            }
+        },
+
         movePaddles: function () {
             var $playGround = $("#playground");
             var $player0 = $("#" + this.player0.elementId);
@@ -95,7 +121,7 @@
                 return true;
             }
             else {
-                $playGround.prepend("<div class='gameOver'>Game Over</div>");
+                $(".gameState").html("Game Over");
                 $ball.hide();
                 return false;
             }
@@ -148,7 +174,7 @@
 
     var server = {
         callback: [],
-        cbGameOver: [],
+        cbReady: [],
         onPosition: function (callback) {
             this.callback.push(callback);
         },
@@ -159,7 +185,15 @@
             for (var i = 0; i < this.callback.length; i++) {
                 this.callback[i](player, position);
             }
-        }
+        },
+        onReady: function (callback) {
+            this.cbReady.push(callback);
+        },
+        triggerReady: function(player){
+            for (var i = 0; i < this.cbReady.length; i++) {
+                this.cbReady[i](player);
+            }
+         }
 
     };
 
@@ -167,8 +201,8 @@
         gameEngine.playerInputPositions[player] = position;
     });
 
-    server.onPosition(function (player, position) {
-        gameEngine.playerInputPositions[player] = position;
+    server.onReady(function (player) {
+        gameEngine.startGame(player);
     });
 </script>
 
