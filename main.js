@@ -43,9 +43,29 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on("postPosition", function(data){
 
-		var result = {clientId: socket.id, beta: data};
+		var player = playerInGame.indexOf[socket.id];
+		if (player ==-1){
+			console.log("Unknown clientId");
+			return;
+		}
+
+
+		var result = {player: player+1, clientId: socket.id, beta: data};
 		console.log("Fire onPosition "+require("util").inspect(result,true,null) );
-		socket.emit("onPosition",{clientId: socket.id, beta: data});
+		socket.emit("onPosition",result);
 	})
+
+
+	socket.on("disconnect",function(){
+
+		var clientId=socket.id;
+
+		 if (~playerInGame.indexOf(clientId)){
+			 delete playerInGame.indexOf(clientId)
+		 }
+
+
+	})
+
 });
 
