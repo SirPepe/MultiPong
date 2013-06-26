@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hallo</title>
+
+    <style>
+           .paddle{
+               width:20px;
+               height: 80px;
+               background: black;
+               position: absolute;
+           }
+           #player0{
+               left: 0;
+               margin-left: 5px;
+           }
+            #player1{
+                right: 0;
+                margin-right: 5px;
+            }
+
+            #playground{
+                background: green;
+                border: 2px solid white;
+                width: 900px;
+                position: relative;
+                height: 680px;
+            }
+
+            #ball{
+                width: 20px;
+                height: 20px;
+                background: white;
+                border-radius: 10px;
+                border: 1px solid white;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+            }
+
+    </style>
+    <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+</head>
+<body>
+      <div id="playground">
+        <div id="player0" class="paddle"></div>
+        <div id="player1" class="paddle"></div>
+        <div id="ball"></div>
+      </div>
+      <label>Player 0:</label><input type="range" min="-1" max="1" step="0.02" id="player0-control" onchange="server.trigger(0, $('#player0-control').val())">
+      <label>Player 1:</label><input type="range" min="-1" max="1" step="0.02" id="player1-control" onchange="server.trigger(1, $('#player1-control').val())">
+      <script>
+
+          var gameEngine = {
+             playerInputPositions: [0,0],
+             player0 : {ready: false, y : 0, elementId: "player0"},
+             player1 : {ready: false, y: 0, elementId: "player1"},
+             movePaddles : function(){
+                 var $playGround = $("#playground");
+                 var $player0 = $("#"+this.player0.elementId);
+                 var $player1 = $("#"+this.player1.elementId);
+                 this.movePaddle($player0, $playGround, this.playerInputPositions[0]);
+                 this.movePaddle($player1, $playGround, this.playerInputPositions[1]);
+             },
+              movePaddle : function($paddle, $playGround, additionalPos){
+                  var position = $paddle.position();
+                  var offset = additionalPos*7;
+                  if(position.top+offset <= $playGround.height() - $paddle.height() && position.top+offset >= 0){
+                      $paddle.css("top", (position.top+offset)+"px");
+                  }
+              },
+              moveBall: function(){
+
+              }
+
+
+          };
+
+
+          window.requestAnimationFrame(function move(){
+              gameEngine.movePaddles();
+              gameEngine.moveBall();
+              window.requestAnimationFrame(move);
+
+          });
+
+         var server = {
+             callback : [],
+             onPosition : function(callback){
+             this.callback.push(callback);
+            },
+             trigger : function(player, position){
+                 for(var i = 0; i < this.callback.length; i++){
+                     this.callback[i](player, position);
+                 }
+            }} ;
+
+          server.onPosition(function(player, position){
+              gameEngine.playerInputPositions[player] = position;
+          });
+      </script>
+
+</body>
+</html>
