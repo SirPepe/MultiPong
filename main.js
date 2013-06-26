@@ -29,10 +29,10 @@ io.sockets.on('connection', function (socket) {
 		var clientId=socket.id;
 
 		if (playerInGame.length<2){
-			 if (!~playerInGame.indexOf(clientId)){
-				 console.log("client registered");
-				 playerInGame.push(clientId);
-			 }
+			if (!~playerInGame.indexOf(clientId)){
+				console.log("client registered");
+				playerInGame.push(clientId);
+			}
 		}
 		if (playerInGame.length==2){
 			console.log("Fire onReady: 2 Player in the game");
@@ -43,29 +43,36 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on("postPosition", function(data){
 
-		var player = playerInGame.indexOf[socket.id];
+		var player = playerInGame.indexOf(socket.id);
 		if (player ==-1){
 			console.log("Unknown clientId");
 			return;
 		}
 
 
-		var result = {player: player+1, clientId: socket.id, beta: data};
+		var result = {player: player, clientId: socket.id, beta: data};
 		console.log("Fire onPosition "+require("util").inspect(result,true,null) );
 		socket.emit("onPosition",result);
-	})
+	}),
 
 
-	socket.on("disconnect",function(){
+		socket.on("postGameOver", function(data){
 
-		var clientId=socket.id;
+			socket.emit("onGameOver",result);
 
-		 if (~playerInGame.indexOf(clientId)){
-			 delete playerInGame.indexOf(clientId)
-		 }
+		}),
 
 
-	})
+		socket.on("disconnect",function(){
+
+			var clientId=socket.id;
+
+			if (~playerInGame.indexOf(clientId)){
+				delete playerInGame.indexOf(clientId)
+			}
+
+
+		})
 
 });
 
