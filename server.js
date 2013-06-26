@@ -25,11 +25,11 @@ define(["socket.io/socket.io"],function(io){
 		},
 		onPosition: function(cb){
 			socket.on("onPosition",function(data){
-				cb(data.clientId,data.beta);
+				cb(data.player,data.beta);
 			});
 		},
-		postGameOver: function(clientId){
-			socket.emit("postGameOver",beta);
+		postGameOver: function(player){
+			socket.emit("postGameOver",player);
 		},
 		onGameOver: function(cb){
 			socket.on("onGameOver",function(isWinner){

@@ -58,7 +58,9 @@ io.sockets.on('connection', function (socket) {
 
 		socket.on("postGameOver", function(data){
 
-			socket.emit("onGameOver",result);
+			io.sockets.socket(playerInGame[0]).emit("onGameOver",(data==0));
+
+			io.sockets.socket(playerInGame[1]).emit("onGameOver",(data==1));
 
 		}),
 
