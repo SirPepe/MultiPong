@@ -27,7 +27,7 @@ define(["server", "jquery"], function(server){
 		// Position an Server uebermitteln
 		server.postPosition(position);
 		
-	}, 100), false);
+	}, 50), false);
 
 
 	var $readyBtn = $('#readyBtn');
