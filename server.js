@@ -2,7 +2,7 @@
 
 define(["socket.io/socket.io"],function(io){
 
-	var socket = io.connect('http://192.168.2.103');
+	var socket = io.connect('http://192.168.2.102');
 //var socket=io.connect("http://localhost:8080");
 
 	socket.emit("ready",{data: "Client ist da"});
