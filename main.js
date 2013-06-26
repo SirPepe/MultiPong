@@ -45,7 +45,7 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on("postPosition", function(data){
 
-		if (playerGame.length!=2){
+		if (playerInGame.length!=2){
 			return;
 		}
 
