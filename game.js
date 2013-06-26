@@ -5,7 +5,12 @@
  * Time: 14:39
  * To change this template use File | Settings | File Templates.
  */
+
+var outerServer;
+var outerGameEngine;
+
 define(["server", "jquery"], function(server){
+    outerServer = server;
 var gameEngine = {
     playerInputPositions: [0, 0],
     player0: {ready: false, elementId: "player0", id : 0},
@@ -103,7 +108,7 @@ var gameEngine = {
 
 
 };
-
+    outerGameEngine = gameEngine;
 
 window.requestAnimationFrame(function move() {
     gameEngine.movePaddles();
@@ -112,30 +117,6 @@ window.requestAnimationFrame(function move() {
 
 });
 
-/*var server = {
-    callback: [],
-    cbReady: [],
-    onPosition: function (callback) {
-        this.callback.push(callback);
-    },
-    postGameOver: function (player) {
-        console.log("server game over", player);
-    },
-    trigger: function (player, position) {
-        for (var i = 0; i < this.callback.length; i++) {
-            this.callback[i](player, position);
-        }
-    },
-    onReady: function (callback) {
-        this.cbReady.push(callback);
-    },
-    triggerReady: function(player){
-        for (var i = 0; i < this.cbReady.length; i++) {
-            this.cbReady[i](player);
-        }
-    }
-
-};*/
 
 server.onPosition(function (player, position) {
     console.log("got new position: ", player, position);
@@ -145,4 +126,5 @@ server.onPosition(function (player, position) {
 server.onReady(function (player) {
     console.log("on ready: ", player);
     gameEngine.startGame(player);
-});});
+});
+});
