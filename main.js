@@ -39,7 +39,7 @@ io.sockets.on('connection', function (socket) {
 			socket.emit("onReady");
 		}
 
-		throw data;
+
 	})
 
 
