@@ -1,8 +1,19 @@
 define(["server", "jquery"], function(server){
 
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
 	var $info = $('#info');
 
-	window.addEventListener('deviceorientation', function(evt){
+	window.addEventListener('deviceorientation', debounce(function(evt){
 		var position = (evt.beta / 90);
 
 		// debug info ausgeben
@@ -10,16 +21,16 @@ define(["server", "jquery"], function(server){
 		"Vorwaerts-Rueckwaerts: " + position;
 		info.innerHTML = msg;
 		
-		// TODO Position an Server übermitteln
+		// Position an Server uebermitteln
 		server.postPosition(position);
 		
-	}, false);
+	}, 100), false);
 
 
 	var $readyBtn = $('#readyBtn');
 
 	readyBtn.onclick = function() {
-		// TODO Ready an Server schicken
+		// Ready an Server schicken
 		server.postReady();
 		this.style.visibility = 'hidden';
 	};
